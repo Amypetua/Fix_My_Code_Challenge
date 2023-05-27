@@ -2,7 +2,7 @@
 
 """
  User Model
- """
+"""
  import hashlib
  import uuid
 
@@ -44,6 +44,7 @@
         else:
             self.__password = hashlib.md5(pwd.encode()).hexdigest().lower()
 
+    
     def is_valid_password(self, pwd):
         """
         Valid password:
@@ -54,10 +55,11 @@
         """
         if pwd is None or type(pwd) is not str:
             return False
-        if self.__password is None:
+        if self.password is None:
             return False
-        return hashlib.md5(pwd.encode()).hexdigest().upper() == self.__password
+        return hashlib.md5(pwd.encode()).hexdigest().lower() == self.password
 
+    
     if __name__ == '__main__':
         print("Test User")
 
@@ -92,13 +94,11 @@
 
 
         if not user_1.is_valid_password(u_pwd):
-            print("is_valid_password should return True if it's the right
-\
+            print("is_valid_password should return True if it's the right \
 password")
 
         if user_1.is_valid_password("Fakepwd"):
-            print("is_valid_password should return False if it's not the
-\
+            print("is_valid_password should return False if it's not the \
 right password")
 
 
@@ -107,13 +107,10 @@ right password")
 )
 
         if user_1.is_valid_password(89):
-            print("is_valid_password should return False if compared with
-\
+            print("is_valid_password should return False if compared with \
 integer")
 
-
         if user_2.is_valid_password("No pwd"):
-            print("is_valid_password should return False if no password
-\
+            print("is_valid_password should return False if no password \
 set before")
 
